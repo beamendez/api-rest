@@ -1,0 +1,26 @@
+<form id="signup" method="post">
+  <input type="email" name="email" value="" placeholder="Tu Email">
+  <br><br>
+  <input type="text" name="displayName" value="" placeholder="Tu Nombre">
+  <br><br>
+  <input type="password" name="password" value="" placeholder="Tu contraseña">
+  <br><br>
+  <input type="submit" value="Signup">
+</form>
+
+<script type="text/javascript">
+  const formSignup = document.querySelector('#signup')
+  const formData = new FormData(formSignup)
+
+  formSignup.addEventListener('submit', event => {
+    event.preventDefault()
+    fetch('/api/signup', {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+      localStorage.setItem('token', data.token)
+    })
+  })
+</script>
